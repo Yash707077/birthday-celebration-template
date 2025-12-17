@@ -48,6 +48,7 @@ Go to your GitHub repository page and refresh - you should see all the files!
 ## Quick Command Reference
 
 ### Clone the Repository (for others)
+
 ```bash
 git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 cd YOUR_REPO_NAME
@@ -56,6 +57,7 @@ npm run dev
 ```
 
 ### Make Updates
+
 ```bash
 # After making changes
 git add .
@@ -64,6 +66,7 @@ git push
 ```
 
 ### Create New Branch
+
 ```bash
 git checkout -b feature-name
 # Make changes
@@ -92,18 +95,21 @@ git push -u origin main
 ## Troubleshooting
 
 ### Error: "remote origin already exists"
+
 ```bash
 git remote remove origin
 git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
 ```
 
 ### Error: "failed to push"
+
 ```bash
 git pull origin main --allow-unrelated-histories
 git push -u origin main
 ```
 
 ### Need to change remote URL
+
 ```bash
 git remote set-url origin https://github.com/YOUR_USERNAME/NEW_REPO_NAME.git
 ```
@@ -115,18 +121,22 @@ git remote set-url origin https://github.com/YOUR_USERNAME/NEW_REPO_NAME.git
 After pushing, configure these on GitHub:
 
 ### 1. Add Topics (for discoverability)
+
 - Settings → Topics
 - Add: `birthday`, `react`, `vite`, `gsap`, `celebration`, `template`
 
 ### 2. Enable GitHub Pages (optional)
+
 - Settings → Pages
 - Source: GitHub Actions
 - Or use Vercel/Netlify for better performance
 
 ### 3. Add Repository Description
+
 "🎉 Beautiful interactive birthday celebration website with countdown timer, music, animations, and photo gallery. Built with React + GSAP."
 
 ### 4. Add Website URL
+
 Add your deployed Vercel/Netlify URL to the repository
 
 ---
