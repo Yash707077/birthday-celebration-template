@@ -13,19 +13,38 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `[Recipient Name],
+  const message = `[Roshniii],
 
 Your personalized birthday message goes here.
 
-You can write multiple paragraphs to express your feelings,
-share memories, and make this special day even more memorable.
+Pata hi nahi chala yaar, 8 saal kaise beet gaye.
+We’ve spent so much time together , even while being far apart.
+From day one, you have always been my first priority, madam ji.
+And your first? It was me, it is me, and it will always be me
+(feeling kinda proud btw 😌).
 
-This template supports multiple lines and formatting,
-so feel free to customize it completely to fit your style.
+And listen… you’re turning 18 😭
+Chhoti toh tu pehle bhi nahi thi, mature toh tu hamesha se thi,
+but ab officially certified ho gayi ,so yeah 😏
 
-Happy Birthday! 🎉
+Happiest Birthday to my jigar ka tukda 💫  
+Agar ek galaxy kam pad jaaye wish karne ke liye,
+toh main dusri galaxy se bhi wish karunga, meri bestie.
 
-— [Your Name]`;
+Honestly, tu kitni lucky hai yaar,
+mujh jaisa best friend mila tujhe 😌
+I mean… just look at me 😎
+
+Waise next month main aa raha hoon,
+phir milenge, full bakchodi hogi,
+khud chatar-patar khayenge,
+shopping full set,
+and endless laughs.
+
+Happy Birthday my girl 💕  
+Love you so much 🤍
+
+— [Yashuu]`;
 
   // Handle page transitions
   useEffect(() => {
