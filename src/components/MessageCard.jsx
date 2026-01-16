@@ -13,9 +13,7 @@ function MessageCard({ isActive }) {
   const curtainHintRef = useRef(null);
   const messageContentRef = useRef(null);
 
-  const message = `[Roshniii],
-
-Your personalized birthday message goes here.
+  const message = `Roshniii,
 
 Pata hi nahi chala yaar, 8 saal kaise beet gaye.
 We’ve spent so much time together , even while being far apart.
@@ -44,7 +42,7 @@ and endless laughs.
 Happy Birthday my girl 💕  
 Love you so much 🤍
 
-— [Yashuu]`;
+— Yashuu`;
 
   // Handle page transitions
   useEffect(() => {
