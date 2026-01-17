@@ -17,11 +17,7 @@ function Gallery({ isActive }) {
   { src: "/IMG_20260115_182713_309.jpg", alt: "Memory 4" },
   { src: "/IMG_20260115_182715_146.jpg", alt: "Memory 5" },
   { src: "/IMG_20260115_214915_769.jpg", alt: "Memory 6" },
-  { src: "/IMG_20260115_214918_361.jpg", alt: "Memory 7" },
-  { src: "/IMG_20260115_214921_306.jpg", alt: "Memory 8" },
-  { src: "/IMG_20260115_214929_911.jpg", alt: "Memory 9" },
-  { src: "/IMG_20260115_214931_810.jpg", alt: "Memory 10" },
-  { src: "/IMG_20260115_214947_729.jpg", alt: "Memory 11" },
+
   ];
 
   // Reveal photos with GSAP when page becomes active
