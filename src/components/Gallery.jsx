@@ -13,7 +13,7 @@ function Gallery({ isActive }) {
   const photos = [
   { src: "/IMG_20260115_182706_321.jpg", alt: "Memory 1" },
   { src: "/IMG_20260115_182708_368.jpg", alt: "Memory 2" },
-  { src: "/IMG_20260115_182710_747.jpg", alt: "Memory 3" },
+  
   { src: "/IMG_20260115_182713_309.jpg", alt: "Memory 4" },
   { src: "/IMG_20260115_182715_146.jpg", alt: "Memory 5" },
   { src: "/IMG_20260115_214915_769.jpg", alt: "Memory 6" },
