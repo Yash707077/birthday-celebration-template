@@ -11,151 +11,126 @@ function Gallery({ isActive }) {
   const lightboxImgRef = useRef(null);
 
   const photos = [
-  { src: "/IMG_20260115_182706_321.jpg", alt: "Memory 1" },
-  { src: "/IMG_20260115_182708_368.jpg", alt: "Memory 2" },
-  
-  { src: "/IMG_20260115_182713_309.jpg", alt: "Memory 4" },
-  { src: "/IMG_20260115_182715_146.jpg", alt: "Memory 5" },
-  { src: "/IMG_20260115_214915_769.jpg", alt: "Memory 6" },
-
+    { src: "/IMG_20260115_182706_321.jpg", alt: "Memory 1" },
+    { src: "/IMG_20260115_182708_368.jpg", alt: "Memory 2" },
+    { src: "/IMG_20260115_182713_309.jpg", alt: "Memory 3" },
+    { src: "/IMG_20260115_182715_146.jpg", alt: "Memory 4" },
+    { src: "/IMG_20260115_214915_769.jpg", alt: "Memory 5" },
+    { src: "/IMG_20260115_214918_361.jpg", alt: "Memory 6" },
+    { src: "/IMG_20260115_214921_306.jpg", alt: "Memory 7" },
+    { src: "/IMG_20260115_214929_911.jpg", alt: "Memory 8" },
+    { src: "/IMG_20260115_214931_810.jpg", alt: "Memory 9" },
+    { src: "/IMG_20260115_214947_729.jpg", alt: "Memory 10" },
   ];
 
   // Reveal photos with GSAP when page becomes active
   useEffect(() => {
     if (isActive && !photosRevealed) {
       setTimeout(() => setPhotosRevealed(true), 10);
+    }
+  }, [isActive, photosRevealed]);
 
+  useEffect(() => {
+    if (photosRevealed) {
       // Stagger animation for photos
       gsap.fromTo(
         photosRef.current,
         {
           opacity: 0,
-          y: 50,
           scale: 0.8,
+          y: 50,
         },
         {
           opacity: 1,
-          y: 0,
           scale: 1,
+          y: 0,
           duration: 0.6,
-          stagger: 0.12,
-          ease: "back.out(1.4)",
-          delay: 0.2,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
         }
       );
     }
-  }, [isActive, photosRevealed]);
+  }, [photosRevealed]);
 
-  const openLightbox = (index) => {
+  const openLightbox = useCallback((index) => {
     setCurrentIndex(index);
     setLightboxOpen(true);
-
-    // Animate lightbox appearance
-    if (lightboxImgRef.current) {
-      gsap.fromTo(
-        lightboxImgRef.current,
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.4)" }
-      );
-    }
-  };
+  }, []);
 
   const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
   }, []);
 
-  // Handle body overflow in effect
+  const nextPhoto = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % photos.length);
+  }, [photos.length]);
+
+  const prevPhoto = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
+  }, [photos.length]);
+
+  // Animate lightbox image when it changes
   useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (lightboxOpen && lightboxImgRef.current) {
+      gsap.fromTo(
+        lightboxImgRef.current,
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+      );
     }
+  }, [currentIndex, lightboxOpen]);
 
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [lightboxOpen]);
-
-  const showNext = useCallback(() => {
-    const newIndex = (currentIndex + 1) % photos.length;
-
-    // Animate transition
-    if (lightboxImgRef.current) {
-      gsap.to(lightboxImgRef.current, {
-        x: -100,
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.in",
-        onComplete: () => {
-          setCurrentIndex(newIndex);
-          gsap.fromTo(
-            lightboxImgRef.current,
-            { x: 100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
-          );
-        },
-      });
-    }
-  }, [currentIndex, photos.length]);
-
-  const showPrev = useCallback(() => {
-    const newIndex = (currentIndex - 1 + photos.length) % photos.length;
-
-    // Animate transition
-    if (lightboxImgRef.current) {
-      gsap.to(lightboxImgRef.current, {
-        x: 100,
-        opacity: 0,
-        duration: 0.2,
-        ease: "power2.in",
-        onComplete: () => {
-          setCurrentIndex(newIndex);
-          gsap.fromTo(
-            lightboxImgRef.current,
-            { x: -100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.3, ease: "power2.out" }
-          );
-        },
-      });
-    }
-  }, [currentIndex, photos.length]);
-
+  // Keyboard navigation for lightbox
   useEffect(() => {
+    if (!lightboxOpen) return;
+
     const handleKeyDown = (e) => {
-      if (!lightboxOpen) return;
-
-      if (e.key === "Escape") {
-        closeLightbox();
-      } else if (e.key === "ArrowLeft") {
-        showPrev();
-      } else if (e.key === "ArrowRight") {
-        showNext();
-      }
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextPhoto();
+      if (e.key === "ArrowLeft") prevPhoto();
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxOpen, showNext, showPrev, closeLightbox]);
+  }, [lightboxOpen, closeLightbox, nextPhoto, prevPhoto]);
 
   return (
-    <section className="gallery">
-      <h2>📸 my gurlll</h2>
-      <div className="photos">
+    <div className="gallery-container">
+      <h2 className="gallery-title">
+        📷 📸 my gurll! 📷
+      </h2>
+
+      <div className="photo-grid">
         {photos.map((photo, index) => (
-          <img
+          <div
             key={index}
+            className="photo-item"
             ref={(el) => (photosRef.current[index] = el)}
-            src={photo.src}
-            alt={photo.alt}
             onClick={() => openLightbox(index)}
-            loading="lazy"
-          />
+          >
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
+            <div className="photo-overlay">
+              <span>{photo.alt}</span>
+            </div>
+          </div>
         ))}
       </div>
 
+      {/* Lightbox */}
       {lightboxOpen && (
         <div className="lightbox" onClick={closeLightbox}>
+          <button className="lightbox-close" onClick={closeLightbox}>
+            ✕
+          </button>
+          <button
+            className="lightbox-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevPhoto();
+            }}
+          >
+            ❮
+          </button>
           <img
             ref={lightboxImgRef}
             src={photos[currentIndex].src}
@@ -163,35 +138,18 @@ function Gallery({ isActive }) {
             onClick={(e) => e.stopPropagation()}
           />
           <button
-            className="lightbox-close"
-            onClick={closeLightbox}
-            aria-label="Close lightbox"
-          >
-            ✖
-          </button>
-          <button
-            className="nav-btn nav-prev"
+            className="lightbox-next"
             onClick={(e) => {
               e.stopPropagation();
-              showPrev();
+              nextPhoto();
             }}
-            aria-label="Previous photo"
           >
-            ‹
+            ❯
           </button>
-          <button
-            className="nav-btn nav-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              showNext();
-            }}
-            aria-label="Next photo"
-          >
-            ›
-          </button>
+          <div className="lightbox-caption">{photos[currentIndex].alt}</div>
         </div>
       )}
-    </section>
+    </div>
   );
 }
 
